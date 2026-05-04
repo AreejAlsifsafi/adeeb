@@ -1,0 +1,659 @@
+<<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم | نادي أديب</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --navy: #1b2f4e;
+  --navy2: #274060;
+  --navy3: #335C81;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --ink: #0f172a;
+  --muted: rgba(15, 23, 42, 0.65);
+  --green: #22c55e;
+  --red: #ef4444;
+  --white: #ffffff;
+  --glass: rgba(27, 47, 78, 0.05);
+  --glass-strong: rgba(27, 47, 78, 0.08);
+  --glass-border: rgba(27, 47, 78, 0.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body {
+  font-family:'Eras Demi ITC','Tajawal',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  min-height:100vh;
+  background:#ffffff;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+:lang(ar) body, body[dir="rtl"]{
+  font-family:'Lyon Arabic Display Black','Tajawal',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+
+/* ===== BG ===== */
+.bg {
+  position:fixed;inset:0;z-index:0;
+  background: 
+    radial-gradient(ellipse 110% 90% at 0% 0%, rgba(39,64,96,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 100% 100%, rgba(201,168,76,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 10%, rgba(51,92,129,0.10) 0%, transparent 60%),
+    #ffffff;
+}
+.grid-lines {
+  position:fixed;inset:0;z-index:0;opacity:0.04;
+  background-image: linear-gradient(rgba(27,47,78,1) 1px, transparent 1px),
+                    linear-gradient(90deg,rgba(27,47,78,1) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ===== WRAP ===== */
+.wrap {
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header {
+  padding:18px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+}
+.header-left {
+  display:flex;align-items:center;gap:16px;
+}
+.logo-img {
+  height:44px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  background:#fff;
+  border-radius:10px;
+  padding:6px 10px;
+  border:1px solid rgba(27,47,78,0.10);
+}
+.logo-sep {width:1px;height:32px;background:var(--glass-border);}
+
+.admin-badge {
+  display:flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,0.15);
+  border:1px solid rgba(201,168,76,0.3);
+  padding:8px 16px;border-radius:30px;
+  color:var(--navy);font-size:14px;font-weight:900;
+}
+.admin-badge i{font-size:12px;}
+
+/* ===== MAIN ===== */
+main {
+  flex:1;padding:32px;
+  display:grid;grid-template-columns:1fr;gap:24px;
+  max-width:700px;margin:0 auto;width:100%;
+}
+
+/* ===== PANEL ===== */
+.panel {
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  padding:28px;
+  position:relative;overflow:hidden;
+  box-shadow:0 18px 50px rgba(15,23,42,0.08);
+}
+.panel::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(27,47,78,0.16),transparent);
+}
+.panel-header {
+  display:flex;align-items:center;gap:12px;margin-bottom:24px;
+}
+.panel-icon {
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--navy2),var(--navy3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;border:1px solid rgba(27,47,78,0.14);
+  flex-shrink:0;
+  box-shadow:0 10px 22px rgba(27,47,78,0.16);
+}
+.panel-title {
+  font-size:20px;font-weight:900;
+  background:linear-gradient(135deg,var(--navy),rgba(27,47,78,0.70));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ===== SELECT ===== */
+.select-wrap {position:relative;}
+.select-wrap i {
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,0.4);pointer-events:none;font-size:16px;z-index:1;
+}
+select {
+  width:100%;padding:15px 44px 15px 16px;
+  background:rgba(27,47,78,0.05);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  color:var(--ink);font-family:'Tajawal';font-size:17px;
+  appearance:none;-webkit-appearance:none;
+  cursor:pointer;outline:none;
+  transition:all 0.3s;
+}
+select:focus {
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,168,76,0.15);
+}
+select option{background:#1b2f4e;color:#fff;}
+
+/* ===== WORD PREVIEW ===== */
+.word-preview {
+  margin-top:20px;
+  padding:24px;
+  background:rgba(27,47,78,0.035);
+  border:1px dashed var(--glass-border);
+  border-radius:16px;
+  text-align:center;
+}
+.preview-label {
+  font-size:12px;letter-spacing:2px;color:rgba(27,47,78,0.55);
+  text-transform:uppercase;margin-bottom:10px;
+}
+.preview-word {
+  font-size:clamp(36px,8vw,56px);font-weight:900;
+  background:linear-gradient(135deg,var(--navy),var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ===== BTNS ===== */
+.btn-row {
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;
+}
+.btn {
+  padding:16px;border:none;border-radius:14px;
+  font-family:'Tajawal';font-weight:900;font-size:17px;
+  cursor:pointer;display:flex;align-items:center;
+  justify-content:center;gap:10px;transition:all 0.3s;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn:active{transform:translateY(0);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+.btn-start {
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+  color:#fff;box-shadow:0 8px 24px rgba(34,197,94,0.3);
+}
+.btn-start:hover{box-shadow:0 12px 32px rgba(34,197,94,0.5);}
+
+.btn-stop {
+  background:linear-gradient(135deg,#b91c1c,#ef4444);
+  color:#fff;box-shadow:0 8px 24px rgba(239,68,68,0.3);
+}
+.btn-stop:hover{box-shadow:0 12px 32px rgba(239,68,68,0.5);}
+
+/* ===== STATUS PANEL ===== */
+.status-panel {
+  padding:20px;
+  border-radius:16px;
+  display:flex;align-items:center;gap:16px;
+  transition:all 0.4s;
+  border:1px solid var(--glass-border);
+  background:rgba(27,47,78,0.035);
+}
+.status-dot {
+  width:14px;height:14px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,0.3);
+  position:relative;
+}
+.status-dot.active {
+  background:var(--green);
+  box-shadow:0 0 0 4px rgba(34,197,94,0.25);
+  animation:dotPulse 1.5s ease-in-out infinite;
+}
+.status-dot.stopped{background:var(--red);}
+@keyframes dotPulse {
+  0%,100%{box-shadow:0 0 0 4px rgba(34,197,94,0.25);}
+  50%{box-shadow:0 0 0 8px rgba(34,197,94,0.1);}
+}
+.status-text {
+  font-size:16px;font-weight:900;color:rgba(27,47,78,0.85);
+}
+
+/* ===== WINNER BANNER ===== */
+#winner-banner {
+  display:none;
+  padding:20px;border-radius:16px;text-align:center;
+  background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));
+  border:1px solid rgba(201,168,76,0.3);
+  animation:fadeIn 0.5s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.winner-banner-title{font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:6px;letter-spacing:1px;}
+.winner-banner-name{font-size:28px;font-weight:900;color:var(--gold2);}
+
+/* ===== SUBMISSIONS ===== */
+.submissions-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:12px;color:rgba(255,255,255,0.6);font-weight:700;font-size:13px;
+}
+.submissions-list{
+  display:flex;flex-direction:column;gap:10px;
+  max-height:320px;overflow:auto;padding-right:6px;
+}
+.submission-item{
+  display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+  padding:14px;border-radius:14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--glass-border);
+}
+.submission-left{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.submission-name{font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.submission-ans{color:rgba(255,255,255,0.7);font-size:14px;word-break:break-word;}
+.submission-time{color:rgba(255,255,255,0.35);font-size:11px;letter-spacing:0.5px;}
+.btn-win{
+  border:none;border-radius:12px;padding:10px 12px;
+  font-family:'Tajawal';font-weight:900;font-size:13px;cursor:pointer;
+  background:linear-gradient(135deg,rgba(201,168,76,0.9),rgba(232,201,122,0.9));
+  color:#1b2f4e;
+  transition:transform 0.2s;
+  white-space:nowrap;
+}
+.btn-win:hover{transform:translateY(-1px);}
+.btn-win:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
+
+/* ===== FOOTER ===== */
+footer {
+  padding:16px 32px;
+  background:rgba(255,255,255,0.70);
+  backdrop-filter:blur(10px);
+  border-top:1px solid var(--glass-border);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.social-row {
+  display:flex;gap:16px;
+}
+.social-link {
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(27,47,78,0.04);
+  border:1px solid rgba(27,47,78,0.12);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(27,47,78,0.65);font-size:15px;
+  text-decoration:none;transition:all 0.3s;
+}
+.social-link:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:translateY(-2px);}
+.footer-handle{color:rgba(27,47,78,0.45);font-size:12px;letter-spacing:1px;}
+.footer-dev{color:rgba(27,47,78,0.45);font-size:11px;text-decoration:none;transition:color 0.3s;}
+.footer-dev span{color:var(--gold);}
+.footer-dev:hover{color:rgba(27,47,78,0.75);}
+
+/* Toast */
+#toast {
+  position:fixed;top:80px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,0.92);border:1px solid rgba(201,168,76,0.75);
+  color:var(--navy);padding:11px 26px;border-radius:40px;
+  font-weight:700;font-size:14px;white-space:nowrap;
+  display:none;z-index:9999;backdrop-filter:blur(20px);
+  box-shadow:0 10px 34px rgba(15,23,42,0.18);
+}
+
+@media(max-width:480px){
+  main{padding:20px 16px;}
+  .btn-row{grid-template-columns:1fr;}
+  header{padding:14px 18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="grid-lines"></div>
+<div id="toast"></div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <img src="لوقو الجامعة.png" class="logo-img" alt="KFU">
+      <div class="logo-sep"></div>
+      <img src="لوقو.png" class="logo-img" alt="Adeeb">
+    </div>
+    <div class="admin-badge">
+      <i class="fas fa-shield-halved"></i>
+      لوحة التحكم
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- Question Selector -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-icon">🎯</div>
+        <div class="panel-title">اختيار الكلمة</div>
+      </div>
+
+      <div class="select-wrap">
+        <i class="fas fa-chevron-down"></i>
+        <select id="questions">
+          <option value="">جارِ تحميل الأسئلة...</option>
+        </select>
+      </div>
+
+      <div class="word-preview">
+        <div class="preview-label">معاينة الكلمة</div>
+        <div class="preview-word" id="preview">—</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-icon">🎮</div>
+        <div class="panel-title">التحكم بالجولة</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-start" onclick="startGame()">
+          <i class="fas fa-play"></i> بدء الجولة
+        </button>
+        <button class="btn btn-stop" onclick="stopGame()">
+          <i class="fas fa-stop"></i> إنهاء الجولة
+        </button>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="status-panel">
+          <div class="status-dot" id="status-dot"></div>
+          <div class="status-text" id="status-text">في الانتظار...</div>
+        </div>
+      </div>
+
+      <div id="winner-banner" style="margin-top:16px;">
+        <div class="winner-banner-title">🏆 الفائز بالجولة</div>
+        <div class="winner-banner-name" id="winner-banner-name"></div>
+      </div>
+    </div>
+
+    <!-- Submissions -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-icon">📝</div>
+        <div class="panel-title">الإجابات الواردة</div>
+      </div>
+
+      <div class="submissions-meta">
+        <div>عدد الإجابات: <span id="submissions-count">0</span></div>
+        <div id="submissions-hint">ابدئي الجولة لتظهر الإجابات هنا</div>
+      </div>
+
+      <div id="submissions-empty" style="color:rgba(255,255,255,0.5);font-size:14px;padding:10px 2px;">
+        لا توجد إجابات بعد.
+      </div>
+
+      <div id="submissions-list" class="submissions-list" style="display:none;"></div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-row">
+      <a class="social-link" href="https://x.com/ab_kfu" target="_blank"><i class="fab fa-x-twitter"></i></a>
+      <a class="social-link" href="https://www.instagram.com/ab_kfu/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a class="social-link" href="https://www.youtube.com/@ab_kfu" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a class="social-link" href="https://www.tiktok.com/@ab_kfu" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <div class="footer-handle">@AB_KFU</div>
+    <a href="https://x.com/minndree" target="_blank" class="footer-dev">
+      Developed by <span>Areej Al-Sifsafi @minndree</span>
+    </a>
+  </footer>
+
+</div>
+
+<script>
+// ===== Local Multiplayer (بدون قاعدة بيانات) =====
+const bc = new BroadcastChannel('adeeb_game_v1');
+
+const WORDS = [
+  { word: 'هَبشه' },
+  { word: 'زتت' },
+  { word: 'غَمِيضه' },
+  { word: 'مَابَرَح' },
+  { word: 'هبابك' },
+  { word: 'ادن' },
+  { word: 'غلق' },
+  { word: 'مقاقه' },
+  { word: 'ايزيت' },
+  { word: 'سحه' },
+  { word: 'نوبه' },
+  { word: 'خرمس' },
+  { word: 'انثبر' },
+  { word: 'ابخص' },
+  { word: 'زاهب' },
+  { word: 'مدحدر' },
+  { word: 'هبده' },
+  { word: 'يتنوى' },
+  { word: 'امبلا' },
+  { word: 'البارحه' },
+  { word: 'منطول' },
+  { word: 'عفيسه' },
+  { word: 'اظهر' },
+  { word: 'مطيور' },
+  { word: 'بند' },
+  { word: 'جعونيه' },
+  { word: 'بانكه' },
+  { word: 'دريشه' },
+  { word: 'كنبل' },
+  { word: 'كبت' },
+  { word: 'الحوي' },
+  { word: 'الجَابْلَه' },
+  { word: 'اللَّابْلَه' },
+  { word: 'غلج' },
+  { word: 'هَالْحزْة' },
+  { word: 'برَدْه' },
+  { word: 'مصرقع' },
+];
+
+let selected = null;
+let roundActive = false;
+let submissions = [];
+let players = new Map(); // playerId -> name
+
+function toast(msg, dur=3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.display = 'block';
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>{ el.style.display='none'; }, dur);
+}
+
+function setStatus(type, text) {
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  dot.className = 'status-dot' + (type==='active'?' active':type==='stopped'?' stopped':'');
+  txt.textContent = text;
+}
+
+async function loadQuestions() {
+  const sel = document.getElementById('questions');
+  sel.innerHTML = '<option value="">اختر كلمة للجولة</option>';
+  WORDS.forEach((q, idx) => {
+    const opt = document.createElement('option');
+    opt.value = String(idx);
+    opt.textContent = q.word;
+    sel.appendChild(opt);
+  });
+
+  sel.onchange = () => {
+    const opt = sel.selectedOptions[0];
+    selected = opt.value === '' ? null : Number(opt.value);
+    const pw = document.getElementById('preview');
+    pw.style.opacity = '0';
+    pw.style.transform = 'scale(0.8)';
+    setTimeout(()=>{
+      pw.textContent = selected !== null ? opt.textContent : '—';
+      pw.style.opacity = '1';
+      pw.style.transform = 'scale(1)';
+    }, 200);
+  };
+
+  toast(`✅ تم تحميل ${WORDS.length} كلمة (محليًا)`);
+}
+
+async function startGame() {
+  if(selected === null) return toast('⚠️ اختر كلمة أولاً');
+
+  try {
+    // reset UI
+    submissions = [];
+    renderSubmissions();
+    roundActive = true;
+
+    setStatus('active', '🟢 الجولة جارية...');
+    document.getElementById('winner-banner').style.display = 'none';
+    toast('✅ بدأت الجولة');
+    bc.postMessage({ type:'STATE', roundActive:true, wordIndex: Number(selected) });
+  } catch(e) {
+    console.error(e);
+    toast('❌ خطأ في بدء الجولة');
+  }
+}
+
+function renderSubmissions() {
+  const list = document.getElementById('submissions-list');
+  const empty = document.getElementById('submissions-empty');
+  const count = document.getElementById('submissions-count');
+  const hint = document.getElementById('submissions-hint');
+
+  count.textContent = String(submissions.length);
+
+  if (!selected) {
+    hint.textContent = 'اختاري كلمة ثم ابدئي الجولة';
+  } else {
+    hint.textContent = 'تحديث حي للإجابات أثناء الجولة';
+  }
+
+  if (submissions.length === 0) {
+    empty.style.display = 'block';
+    list.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  list.style.display = 'flex';
+
+  list.innerHTML = submissions.map(s => {
+    const safeName = escapeHtml(s.player_name || 'لاعب');
+    const safeAns = escapeHtml(s.answer || '—');
+    const safeTime = escapeHtml(formatTime(s.created_at));
+    const pid = Number(s.player_id);
+    return `
+      <div class="submission-item">
+        <div class="submission-left">
+          <div class="submission-name">${safeName}</div>
+          <div class="submission-ans">${safeAns}</div>
+          <div class="submission-time">${safeTime}</div>
+        </div>
+        <button class="btn-win" onclick="pickWinner(${pid})">اختيار فائز</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatTime(ts) {
+  if (!ts) return '';
+  try {
+    const d = new Date(ts);
+    return d.toLocaleString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  } catch {
+    return '';
+  }
+}
+
+async function pickWinner(playerId) {
+  if (!playerId) return;
+  try {
+    const name = players.get(String(playerId)) || '—';
+    roundActive = false;
+
+    setStatus('stopped', '🏆 تم اختيار الفائز!');
+    document.getElementById('winner-banner-name').textContent = name;
+    document.getElementById('winner-banner').style.display = 'block';
+    toast(`🏆 الفائز: ${name}`);
+    bc.postMessage({ type:'WINNER', playerId: String(playerId), name });
+  } catch (e) {
+    console.error(e);
+    toast(`❌ تعذر اختيار الفائز: ${e?.message || ''}`);
+  }
+}
+
+async function stopGame() {
+  try {
+    roundActive = false;
+    setStatus('stopped', '🔴 تم إيقاف الجولة');
+    toast('🛑 تم إيقاف الجولة');
+    bc.postMessage({ type:'ROUND_STOPPED' });
+  } catch(e) {
+    console.error(e);
+    toast('❌ خطأ في الإيقاف');
+  }
+}
+
+// Animate preview transitions
+const pw = document.getElementById('preview');
+pw.style.transition = 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+
+loadQuestions();
+renderSubmissions();
+
+bc.onmessage = (ev) => {
+  const msg = ev.data;
+  if (!msg || !msg.type) return;
+
+  if (msg.type === 'JOIN') {
+    players.set(String(msg.playerId), msg.name || 'لاعب');
+  }
+
+  if (msg.type === 'REQUEST_STATE') {
+    bc.postMessage({ type:'STATE', roundActive: !!roundActive, wordIndex: selected });
+  }
+
+  if (msg.type === 'SUBMIT') {
+    if (selected === null) return;
+    if (Number(msg.wordIndex) !== Number(selected)) return;
+
+    players.set(String(msg.playerId), msg.name || players.get(String(msg.playerId)) || 'لاعب');
+    submissions.push({
+      id: crypto.randomUUID(),
+      player_id: String(msg.playerId),
+      answer: String(msg.answer || ''),
+      created_at: msg.createdAt || Date.now(),
+      player_name: players.get(String(msg.playerId)) || 'لاعب'
+    });
+    renderSubmissions();
+  }
+};
+</script>
+</body>
+</html>
