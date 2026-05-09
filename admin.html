@@ -18,70 +18,101 @@ header{padding:18px 32px;display:flex;justify-content:space-between;align-items:
 .logo-img{height:44px;object-fit:contain;background:#fff;border-radius:10px;padding:6px 10px;border:1px solid rgba(27,47,78,0.10);}
 .logo-sep{width:1px;height:32px;background:var(--glass-border);}
 .admin-badge{display:flex;align-items:center;gap:8px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);padding:8px 16px;border-radius:30px;color:var(--navy);font-size:14px;font-weight:900;}
-main{flex:1;padding:32px;display:grid;gap:24px;max-width:700px;margin:0 auto;width:100%;}
-.panel{background:rgba(255,255,255,0.75);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;padding:28px;position:relative;overflow:hidden;box-shadow:0 18px 50px rgba(15,23,42,0.08);}
-.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(27,47,78,0.16),transparent);}
+main{flex:1;padding:32px;display:grid;gap:24px;max-width:600px;margin:0 auto;width:100%;}
+
+.panel{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;padding:32px;position:relative;overflow:hidden;box-shadow:0 18px 50px rgba(15,23,42,0.08);}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 .panel-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
 .panel-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--navy2),var(--navy3));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .panel-title{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--navy),rgba(27,47,78,0.70));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.select-wrap{position:relative;}
-.select-wrap i{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:rgba(27,47,78,0.4);pointer-events:none;font-size:16px;z-index:1;}
-select{width:100%;padding:15px 44px 15px 16px;background:rgba(27,47,78,0.05);border:1px solid var(--glass-border);border-radius:14px;color:var(--ink);font-family:'Tajawal';font-size:17px;appearance:none;cursor:pointer;outline:none;transition:all 0.3s;}
-select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.15);}
-select option{background:#1b2f4e;color:#fff;}
-.word-preview{margin-top:20px;padding:24px;background:rgba(27,47,78,0.035);border:1px dashed var(--glass-border);border-radius:16px;text-align:center;}
-.preview-label{font-size:12px;letter-spacing:2px;color:rgba(27,47,78,0.55);text-transform:uppercase;margin-bottom:10px;}
-.preview-word{font-size:clamp(36px,8vw,56px);font-weight:900;background:linear-gradient(135deg,var(--navy),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
-.btn{padding:16px;border:none;border-radius:14px;font-family:'Tajawal';font-weight:900;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s;}
+
+/* CODE DISPLAY */
+.code-box{
+  text-align:center;padding:32px 20px;
+  background:linear-gradient(135deg,rgba(27,47,78,0.04),rgba(201,168,76,0.06));
+  border:2px dashed rgba(201,168,76,0.4);border-radius:20px;
+  margin-bottom:20px;
+}
+.code-label{font-size:13px;letter-spacing:2px;color:rgba(27,47,78,0.5);margin-bottom:12px;text-transform:uppercase;}
+.code-value{
+  font-size:72px;font-weight:900;letter-spacing:16px;
+  background:linear-gradient(135deg,var(--navy),var(--navy3));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;font-variant-numeric:tabular-nums;
+}
+.code-empty{font-size:18px;color:rgba(27,47,78,0.3);padding:10px 0;}
+.code-expires{font-size:12px;color:rgba(27,47,78,0.4);margin-top:10px;}
+
+.btn{padding:16px;border:none;border-radius:14px;font-family:'Tajawal';font-weight:900;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;width:100%;}
 .btn:hover{transform:translateY(-2px);}
 .btn:active{transform:translateY(0);}
-.btn-start{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;box-shadow:0 8px 24px rgba(34,197,94,0.3);}
-.btn-stop{background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;box-shadow:0 8px 24px rgba(239,68,68,0.3);}
-.status-panel{padding:20px;border-radius:16px;display:flex;align-items:center;gap:16px;border:1px solid var(--glass-border);background:rgba(27,47,78,0.035);margin-top:16px;}
-.status-dot{width:14px;height:14px;border-radius:50%;background:rgba(27,47,78,0.2);}
-.status-dot.active{background:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,0.25);animation:dotPulse 1.5s ease-in-out infinite;}
-.status-dot.stopped{background:var(--red);}
-@keyframes dotPulse{0%,100%{box-shadow:0 0 0 4px rgba(34,197,94,0.25);}50%{box-shadow:0 0 0 8px rgba(34,197,94,0.1);}}
-.status-text{font-size:16px;font-weight:900;color:rgba(27,47,78,0.85);}
-#winner-banner{display:none;padding:20px;border-radius:16px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.3);margin-top:16px;animation:fadeIn 0.5s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.winner-banner-title{font-size:14px;color:rgba(27,47,78,0.6);margin-bottom:6px;letter-spacing:1px;}
-.winner-banner-name{font-size:28px;font-weight:900;color:var(--gold2);}
-.submissions-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;color:rgba(27,47,78,0.6);font-weight:700;font-size:13px;}
-.submissions-list{display:flex;flex-direction:column;gap:10px;max-height:380px;overflow:auto;padding-left:4px;}
-.submission-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:14px;border-radius:14px;background:rgba(27,47,78,0.03);border:1px solid var(--glass-border);}
-.submission-left{display:flex;flex-direction:column;gap:4px;min-width:0;}
-.submission-name{font-weight:900;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.submission-ans{color:rgba(27,47,78,0.7);font-size:14px;word-break:break-word;}
-.submission-time{color:rgba(27,47,78,0.4);font-size:11px;}
-.btn-win{border:none;border-radius:12px;padding:10px 14px;font-family:'Tajawal';font-weight:900;font-size:13px;cursor:pointer;background:linear-gradient(135deg,rgba(201,168,76,0.9),rgba(232,201,122,0.9));color:#1b2f4e;transition:transform 0.2s;white-space:nowrap;}
-.btn-win:hover{transform:translateY(-1px);}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--navy);box-shadow:0 8px 24px rgba(201,168,76,0.30);}
+.btn-gold:hover{box-shadow:0 12px 30px rgba(201,168,76,0.45);}
+.btn-outline{background:transparent;border:2px solid var(--glass-border);color:rgba(27,47,78,0.7);margin-top:12px;}
+.btn-outline:hover{border-color:var(--gold);color:var(--navy);background:rgba(201,168,76,0.06);}
+.btn-red{background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;box-shadow:0 8px 24px rgba(239,68,68,0.25);margin-top:12px;}
+
+/* SESSIONS LIST */
+.sessions-list{display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto;}
+.session-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:14px;
+  background:rgba(27,47,78,0.03);border:1px solid var(--glass-border);
+}
+.session-code-badge{
+  font-size:22px;font-weight:900;letter-spacing:4px;color:var(--navy);
+  background:rgba(27,47,78,0.06);padding:8px 14px;border-radius:10px;
+  min-width:90px;text-align:center;
+}
+.session-info{flex:1;}
+.session-label{font-weight:700;font-size:14px;color:var(--navy);}
+.session-meta{font-size:12px;color:rgba(27,47,78,0.45);margin-top:2px;}
+.session-players{font-size:12px;color:var(--navy3);font-weight:700;margin-top:2px;}
+.btn-copy{
+  border:none;background:rgba(27,47,78,0.06);color:var(--navy);
+  padding:8px 12px;border-radius:10px;font-family:'Tajawal';
+  font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.btn-copy:hover{background:var(--gold);color:var(--navy);}
+.empty-msg{text-align:center;color:rgba(27,47,78,0.4);font-size:14px;padding:20px;}
+
+/* LEADERBOARD PREVIEW */
+.lb-preview{display:flex;flex-direction:column;gap:8px;max-height:350px;overflow-y:auto;}
+.lb-row{display:grid;grid-template-columns:40px 1fr 60px 60px;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:rgba(27,47,78,0.03);border:1px solid var(--glass-border);font-size:14px;}
+.lb-row.top1{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.3);}
+.lb-row.top2{background:rgba(192,192,192,.08);border-color:rgba(192,192,192,.3);}
+.lb-row.top3{background:rgba(205,127,50,.08);border-color:rgba(205,127,50,.3);}
+.lb-rank{font-weight:900;text-align:center;}
+.lb-name{font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lb-score{text-align:center;font-weight:900;color:var(--navy);}
+.lb-time{text-align:center;color:rgba(27,47,78,0.5);font-size:12px;}
+.lb-header{color:rgba(27,47,78,0.5);font-size:12px;font-weight:700;border:none;background:none;padding:4px 12px;}
+
+.select-session{width:100%;padding:12px 16px;background:rgba(27,47,78,0.05);border:1px solid var(--glass-border);border-radius:12px;font-family:'Tajawal';font-size:15px;color:var(--ink);outline:none;margin-bottom:16px;cursor:pointer;}
+.select-session:focus{border-color:var(--gold);}
+
 footer{padding:16px 32px;background:rgba(255,255,255,0.70);backdrop-filter:blur(10px);border-top:1px solid var(--glass-border);display:flex;flex-direction:column;align-items:center;gap:10px;}
 .social-row{display:flex;gap:16px;}
-.social-link{width:38px;height:38px;border-radius:10px;background:rgba(27,47,78,0.04);border:1px solid rgba(27,47,78,0.12);display:flex;align-items:center;justify-content:center;color:rgba(27,47,78,0.65);font-size:15px;text-decoration:none;transition:all 0.3s;}
+.social-link{width:36px;height:36px;border-radius:10px;background:rgba(27,47,78,0.04);border:1px solid rgba(27,47,78,0.12);display:flex;align-items:center;justify-content:center;color:rgba(27,47,78,0.65);font-size:14px;text-decoration:none;transition:all .3s;}
 .social-link:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:translateY(-2px);}
 .footer-handle{color:rgba(27,47,78,0.45);font-size:12px;letter-spacing:1px;}
-.footer-dev{color:rgba(27,47,78,0.45);font-size:11px;text-decoration:none;}
-.footer-dev span{color:var(--gold);}
-#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.92);border:1px solid rgba(201,168,76,0.75);color:var(--navy);padding:11px 26px;border-radius:40px;font-weight:700;font-size:14px;white-space:nowrap;display:none;z-index:9999;backdrop-filter:blur(20px);box-shadow:0 10px 34px rgba(15,23,42,0.18);}
-#loader{position:fixed;inset:0;z-index:99999;background:rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--navy);backdrop-filter:blur(10px);}
-@media(max-width:480px){main{padding:20px 16px;}.btn-row{grid-template-columns:1fr;}header{padding:14px 18px;}}
-.footer-dev-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
-.footer-dev-name{color:rgba(27,47,78,0.45);font-size:12px;}
+.footer-dev-wrap{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.footer-dev-name{color:rgba(27,47,78,0.45);font-size:11px;}
 .footer-dev-name span{color:var(--gold);font-weight:700;}
-.footer-dev-links{display:flex;gap:14px;align-items:center;}
-.footer-dev-link{display:flex;align-items:center;gap:5px;color:rgba(27,47,78,0.55);font-size:11px;text-decoration:none;transition:color 0.3s;}
+.footer-dev-links{display:flex;gap:12px;}
+.footer-dev-link{display:flex;align-items:center;gap:4px;color:rgba(27,47,78,0.50);font-size:11px;text-decoration:none;transition:color .3s;}
 .footer-dev-link:hover{color:var(--gold);}
+
+#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.92);border:1px solid rgba(201,168,76,0.75);color:var(--navy);padding:11px 26px;border-radius:40px;font-weight:700;font-size:14px;white-space:nowrap;display:none;z-index:9999;backdrop-filter:blur(20px);box-shadow:0 10px 34px rgba(15,23,42,0.18);}
+@media(max-width:480px){main{padding:20px 16px;}header{padding:14px 18px;}.code-value{font-size:52px;letter-spacing:10px;}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="grid-lines"></div>
 <div id="toast"></div>
-<div id="loader">⏳ جاري التحميل...</div>
-
 <div class="wrap">
+
   <header>
     <div class="header-left">
       <img src="لوقو الجامعة.png" class="logo-img" alt="KFU">
@@ -93,45 +124,40 @@ footer{padding:16px 32px;background:rgba(255,255,255,0.70);backdrop-filter:blur(
 
   <main>
 
-    <!-- اختيار الكلمة -->
+    <!-- توليد كود -->
     <div class="panel">
-      <div class="panel-header"><div class="panel-icon">🎯</div><div class="panel-title">اختيار الكلمة</div></div>
-      <div class="select-wrap">
-        <i class="fas fa-chevron-down"></i>
-        <select id="questions"><option value="">جارٍ تحميل الكلمات...</option></select>
+      <div class="panel-header">
+        <div class="panel-icon">🎲</div>
+        <div class="panel-title">كود الجلسة</div>
       </div>
-      <div class="word-preview">
-        <div class="preview-label">معاينة الكلمة</div>
-        <div class="preview-word" id="preview" style="transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)">—</div>
+      <div class="code-box">
+        <div class="code-label">الكود الحالي — أعطه للمشاركين</div>
+        <div class="code-value" id="code-display"><span class="code-empty">لم يُولَّد بعد</span></div>
+        <div class="code-expires" id="code-expires"></div>
       </div>
+      <button class="btn btn-gold" onclick="generateCode()">
+        <i class="fas fa-rotate"></i> توليد كود جديد
+      </button>
+      <button class="btn btn-outline" id="btn-copy" onclick="copyCode()" style="display:none">
+        <i class="fas fa-copy"></i> نسخ الكود
+      </button>
     </div>
 
-    <!-- التحكم -->
+    <!-- النتائج -->
     <div class="panel">
-      <div class="panel-header"><div class="panel-icon">🎮</div><div class="panel-title">التحكم بالجولة</div></div>
-      <div class="btn-row">
-        <button class="btn btn-start" onclick="startGame()"><i class="fas fa-play"></i> بدء الجولة</button>
-        <button class="btn btn-stop" onclick="stopGame()"><i class="fas fa-stop"></i> إنهاء الجولة</button>
+      <div class="panel-header">
+        <div class="panel-icon">🏆</div>
+        <div class="panel-title">نتائج الجلسات</div>
       </div>
-      <div class="status-panel">
-        <div class="status-dot" id="status-dot"></div>
-        <div class="status-text" id="status-text">في الانتظار...</div>
+      <select class="select-session" id="session-select" onchange="loadResults()">
+        <option value="">اختر جلسة لعرض نتائجها</option>
+      </select>
+      <div id="lb-container">
+        <div class="empty-msg">اختر جلسة من القائمة</div>
       </div>
-      <div id="winner-banner">
-        <div class="winner-banner-title">🏆 الفائز بالجولة</div>
-        <div class="winner-banner-name" id="winner-banner-name"></div>
-      </div>
-    </div>
-
-    <!-- الإجابات -->
-    <div class="panel">
-      <div class="panel-header"><div class="panel-icon">📝</div><div class="panel-title">الإجابات الواردة</div></div>
-      <div class="submissions-meta">
-        <div>عدد الإجابات: <span id="submissions-count">0</span></div>
-        <div id="submissions-hint">اختر كلمة وابدئ الجولة</div>
-      </div>
-      <div id="submissions-empty" style="color:rgba(27,47,78,0.5);font-size:14px;padding:10px 2px;">لا توجد إجابات بعد.</div>
-      <div id="submissions-list" class="submissions-list" style="display:none;"></div>
+      <button class="btn btn-red" id="btn-clear" onclick="clearSession()" style="display:none">
+        <i class="fas fa-trash"></i> حذف نتائج هذه الجلسة
+      </button>
     </div>
 
   </main>
@@ -139,7 +165,7 @@ footer{padding:16px 32px;background:rgba(255,255,255,0.70);backdrop-filter:blur(
   <footer>
     <div class="social-row">
       <a class="social-link" href="https://x.com/ab_kfu" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-6.4L6.3 22H3.2l7.3-8.3L1 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-6.4L6.3 22H3.2l7.3-8.3L1 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg>
       </a>
       <a class="social-link" href="https://www.instagram.com/ab_kfu/" target="_blank"><i class="fab fa-instagram"></i></a>
       <a class="social-link" href="https://www.youtube.com/@ab_kfu" target="_blank"><i class="fab fa-youtube"></i></a>
@@ -147,18 +173,18 @@ footer{padding:16px 32px;background:rgba(255,255,255,0.70);backdrop-filter:blur(
     </div>
     <div class="footer-handle">@AB_KFU</div>
     <div class="footer-dev-wrap">
-  <span class="footer-dev-name">Developed by <span>Areej Al-Sifsafi</span></span>
-  <div class="footer-dev-links">
-    <a href="https://x.com/minndree" target="_blank" class="footer-dev-link">
-      <svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-6.4L6.3 22H3.2l7.3-8.3L1 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg>
-      @minndree
-    </a>
-    <a href="mailto:areejmerei@gmail.com" class="footer-dev-link">
-      <i class="fas fa-envelope"></i>
-      areejmerei@gmail.com
-    </a>
-  </div>
-</div>
+      <div class="footer-dev-name">Developed by <span>Areej Al-Sifsafi</span></div>
+      <div class="footer-dev-links">
+        <a href="https://x.com/minndree" target="_blank" class="footer-dev-link">
+          <svg viewBox="0 0 24 24" width="11" height="11"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-6.4L6.3 22H3.2l7.3-8.3L1 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg>
+          @minndree
+        </a>
+        <a href="mailto:areejmerei@gmail.com" class="footer-dev-link">
+          <i class="fas fa-envelope" style="font-size:10px;"></i>
+          areejmerei@gmail.com
+        </a>
+      </div>
+    </div>
   </footer>
 </div>
 
@@ -168,200 +194,145 @@ const SUPABASE_URL = 'https://ghpftlnmklfovuuqxbyz.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdocGZ0bG5ta2xmb3Z1dXF4Ynl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTk1NzMsImV4cCI6MjA5MjA5NTU3M30.1BKbhwHhlX-Y2IQxgGpVYZnlB7Ndp-KHNbMHhR9V_AI';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ===== State =====
-let questions = [];          // [{id, word}]
-let selectedQId = null;      // question id المختار
-let submissions = [];        // إجابات الجولة الحالية
-let answerChannel = null;
-let stateChannel  = null;
+let currentCode = null;
 
-// ===== Helpers =====
 function toast(msg, dur=3000){
   const el=document.getElementById('toast');
   el.textContent=msg; el.style.display='block';
   clearTimeout(el._t); el._t=setTimeout(()=>{el.style.display='none';},dur);
 }
-function setStatus(type,text){
-  document.getElementById('status-dot').className='status-dot'+(type==='active'?' active':type==='stopped'?' stopped':'');
-  document.getElementById('status-text').textContent=text;
-}
-function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function fmt(ts){if(!ts)return'';try{return new Date(ts).toLocaleString('ar-SA',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}catch{return '';}}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// ===== تحميل الكلمات من adeeb_game_questions =====
-async function loadQuestions(){
+// ===== توليد كود =====
+async function generateCode(){
+  const code = String(Math.floor(1000 + Math.random() * 9000));
   try{
-    const {data,error}=await sb.from('adeeb_game_questions').select('id,word').order('id',{ascending:true});
-    if(error) throw error;
-    questions=data||[];
-    const sel=document.getElementById('questions');
-    sel.innerHTML='<option value="">اختر كلمة للجولة</option>';
-    questions.forEach(q=>{
-      const opt=document.createElement('option');
-      opt.value=String(q.id);
-      opt.textContent=q.word;
-      sel.appendChild(opt);
-    });
-    sel.onchange=()=>{
-      const id=sel.value===''?null:Number(sel.value);
-      selectedQId=id;
-      const pw=document.getElementById('preview');
-      pw.style.opacity='0'; pw.style.transform='scale(0.8)';
-      setTimeout(()=>{
-        const q=questions.find(x=>x.id===id);
-        pw.textContent=q?q.word:'—';
-        pw.style.opacity='1'; pw.style.transform='scale(1)';
-      },200);
-      submissions=[]; renderSubmissions();
-      if(id!==null) fetchSubmissions(id);
-    };
-    toast(`✅ تم تحميل ${questions.length} كلمة`);
-  }catch(e){
+    const {error} = await sb.from('adeeb_sessions').insert({ code });
+    if(error && error.code !== '23505') throw error; // 23505 = unique violation فقط نجرب كود ثاني
+    if(error && error.code === '23505'){
+      // كود مكرر، نجرب مرة ثانية
+      return generateCode();
+    }
+    currentCode = code;
+    document.getElementById('code-display').textContent = code;
+    document.getElementById('code-expires').textContent = '⏱ صالح لمدة 12 ساعة';
+    document.getElementById('btn-copy').style.display = 'flex';
+    toast('✅ تم توليد الكود: ' + code);
+    loadSessionsList();
+  } catch(e){
     console.error(e);
-    toast(`❌ خطأ في تحميل الكلمات: ${e.message||''}`);
+    toast('❌ خطأ: ' + (e.message||''));
   }
 }
 
-// ===== بدء الجولة =====
-async function startGame(){
-  if(!selectedQId) return toast('⚠️ اختر كلمة أولاً');
+// ===== نسخ الكود =====
+function copyCode(){
+  if(!currentCode) return;
+  navigator.clipboard.writeText(currentCode).then(()=>{
+    toast('📋 تم نسخ الكود: ' + currentCode);
+  }).catch(()=>{
+    toast('الكود: ' + currentCode);
+  });
+}
+
+// ===== تحميل قائمة الجلسات =====
+async function loadSessionsList(){
   try{
-    submissions=[]; renderSubmissions();
-    // أوقف الجولة القديمة وامسح الفائز
-    await sb.from('adeeb_game_state').update({round_active:false,winner_player_id:null,current_question_id:null}).eq('id',1);
-    // ابدأ الجولة الجديدة
-    const {error}=await sb.from('adeeb_game_state')
-      .update({round_active:true, current_question_id:selectedQId, winner_player_id:null})
-      .eq('id',1);
+    const {data,error} = await sb.from('adeeb_sessions')
+      .select('code, created_at')
+      .order('created_at', {ascending:false})
+      .limit(20);
     if(error) throw error;
-    setStatus('active','🟢 الجولة جارية...');
-    document.getElementById('winner-banner').style.display='none';
-    toast('✅ بدأت الجولة');
-    listenAnswers(selectedQId);
-  }catch(e){console.error(e);toast(`❌ ${e.message||''}`);}
+
+    const sel = document.getElementById('session-select');
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">اختر جلسة لعرض نتائجها</option>';
+    (data||[]).forEach(s=>{
+      const d = new Date(s.created_at);
+      const label = d.toLocaleString('ar-SA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      const opt = document.createElement('option');
+      opt.value = s.code;
+      opt.textContent = `${s.code} — ${label}`;
+      sel.appendChild(opt);
+    });
+    if(prev) sel.value = prev;
+  } catch(e){ console.error(e); }
 }
 
-// ===== إيقاف الجولة =====
-async function stopGame(){
+// ===== تحميل نتائج جلسة =====
+async function loadResults(){
+  const code = document.getElementById('session-select').value;
+  const container = document.getElementById('lb-container');
+  const btnClear = document.getElementById('btn-clear');
+
+  if(!code){
+    container.innerHTML='<div class="empty-msg">اختر جلسة من القائمة</div>';
+    btnClear.style.display='none';
+    return;
+  }
+
+  container.innerHTML='<div class="empty-msg">⏳ جاري التحميل...</div>';
+  btnClear.style.display='flex';
+
   try{
-    const {error}=await sb.from('adeeb_game_state').update({round_active:false}).eq('id',1);
+    const {data,error} = await sb.from('adeeb_results')
+      .select('player_name,score,total_ms,created_at')
+      .eq('session_code', code)
+      .order('score',{ascending:false})
+      .order('total_ms',{ascending:true})
+      .limit(50);
     if(error) throw error;
-    setStatus('stopped','🔴 تم إيقاف الجولة');
-    toast('🛑 تم إيقاف الجولة');
-    if(answerChannel){sb.removeChannel(answerChannel);answerChannel=null;}
-  }catch(e){console.error(e);toast('❌ خطأ في الإيقاف');}
-}
 
-// ===== اختيار فائز =====
-async function pickWinner(playerId, playerName){
-  if(!playerId) return;
-  try{
-    // سجّل في adeeb_game_winners
-    await sb.from('adeeb_game_winners').insert({question_id:selectedQId, player_id:playerId});
-    // حدّث الحالة
-    const {error}=await sb.from('adeeb_game_state')
-      .update({round_active:false, winner_player_id:playerId})
-      .eq('id',1);
-    if(error) throw error;
-    setStatus('stopped','🏆 تم اختيار الفائز!');
-    const banner=document.getElementById('winner-banner');
-    document.getElementById('winner-banner-name').textContent=playerName;
-    banner.style.display='block';
-    toast(`🏆 الفائز: ${playerName}`);
-    if(answerChannel){sb.removeChannel(answerChannel);answerChannel=null;}
-  }catch(e){console.error(e);toast(`❌ ${e.message||''}`);}
-}
-
-// ===== cache أسماء اللاعبين =====
-// ===== جلب الإجابات — الاسم محفوظ مباشرة في الصف =====
-async function fetchSubmissions(questionId){
-  try{
-    const {data,error}=await sb.from('adeeb_game_submissions')
-      .select('id, answer, created_at, player_id, player_name')
-      .eq('question_id',questionId)
-      .order('created_at',{ascending:true});
-    if(error) throw error;
-    submissions=(data||[]).map(s=>({
-      id: s.id,
-      player_id: s.player_id,
-      player_name: s.player_name || 'لاعب',
-      answer: s.answer,
-      created_at: s.created_at
-    }));
-    renderSubmissions();
-  }catch(e){console.error('fetchSubmissions error:',e);}
-}
-
-// ===== ريل تايم — فوري بدون طلبات إضافية =====
-function listenAnswers(questionId){
-  if(answerChannel) sb.removeChannel(answerChannel);
-  answerChannel=sb.channel('admin-subs-'+Date.now())
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'adeeb_game_submissions'}, payload=>{
-      const row=payload.new;
-      if(Number(row.question_id)!==Number(questionId)) return;
-      submissions.push({
-        id: row.id,
-        player_id: row.player_id,
-        player_name: row.player_name || 'لاعب',
-        answer: row.answer,
-        created_at: row.created_at
-      });
-      renderSubmissions();
-    }).subscribe();
-  fetchSubmissions(questionId);
-}
-
-// ===== عرض الإجابات =====
-function renderSubmissions(){
-  const list=document.getElementById('submissions-list');
-  const empty=document.getElementById('submissions-empty');
-  document.getElementById('submissions-count').textContent=String(submissions.length);
-  document.getElementById('submissions-hint').textContent=selectedQId!==null?'تحديث حي':'اختر كلمة وابدئ الجولة';
-  if(submissions.length===0){empty.style.display='block';list.style.display='none';list.innerHTML='';return;}
-  empty.style.display='none'; list.style.display='flex';
-  list.innerHTML=submissions.map(s=>{
-    const name=esc(s.player_name);
-    const ans=esc(s.answer||'—');
-    const t=fmt(s.created_at);
-    const pid=Number(s.player_id);
-    return `<div class="submission-item">
-      <div class="submission-left">
-        <div class="submission-name">${name}</div>
-        <div class="submission-ans">${ans}</div>
-        <div class="submission-time">${t}</div>
-      </div>
-      <button class="btn-win" onclick="pickWinner(${pid},'${name}')">اختيار فائز</button>
-    </div>`;
-  }).join('');
-}
-
-// ===== مراقبة حالة اللعبة =====
-async function pollState(){
-  try{
-    const {data:state}=await sb.from('adeeb_game_state').select('*').eq('id',1).single();
-    if(!state) return;
-    if(state.round_active) setStatus('active','🟢 الجولة جارية...');
-    else setStatus('stopped','🔴 في الانتظار');
-    if(state.winner_player_id){
-      try{
-        const {data:p}=await sb.from('adeeb_game_players').select('name').eq('id',state.winner_player_id).single();
-        if(p?.name){
-          document.getElementById('winner-banner-name').textContent=p.name;
-          document.getElementById('winner-banner').style.display='block';
-        }
-      }catch{}
+    const rows = data||[];
+    if(rows.length===0){
+      container.innerHTML='<div class="empty-msg">لا توجد نتائج لهذه الجلسة بعد</div>';
+      return;
     }
-  }catch(e){console.error(e);}
+
+    const RANKS = ['👑','🥈','🥉','4','5'];
+    const TOP   = ['top1','top2','top3','',''];
+
+    container.innerHTML = `
+      <div class="lb-preview">
+        <div class="lb-row lb-header">
+          <div>المركز</div><div>الاسم</div>
+          <div style="text-align:center">النتيجة</div>
+          <div style="text-align:center">الوقت</div>
+        </div>
+        ${rows.map((r,i)=>`
+          <div class="lb-row ${TOP[i]||''}">
+            <div class="lb-rank">${i<3?RANKS[i]:'#'+(i+1)}</div>
+            <div class="lb-name">${esc(r.player_name)}</div>
+            <div class="lb-score">${r.score}/37</div>
+            <div class="lb-time">${(r.total_ms/1000).toFixed(1)}ث</div>
+          </div>`).join('')}
+      </div>`;
+  } catch(e){
+    console.error(e);
+    container.innerHTML='<div class="empty-msg">❌ خطأ في التحميل</div>';
+  }
+}
+
+// ===== حذف نتائج جلسة =====
+async function clearSession(){
+  const code = document.getElementById('session-select').value;
+  if(!code) return;
+  if(!confirm(`هل تريدين حذف نتائج الجلسة ${code}؟`)) return;
+  try{
+    await sb.from('adeeb_results').delete().eq('session_code', code);
+    await sb.from('adeeb_sessions').delete().eq('code', code);
+    toast('🗑 تم حذف الجلسة ' + code);
+    document.getElementById('session-select').value='';
+    loadResults();
+    loadSessionsList();
+  } catch(e){
+    console.error(e);
+    toast('❌ خطأ في الحذف');
+  }
 }
 
 // ===== تهيئة =====
-async function init(){
-  await loadQuestions();
-  await pollState();
-  document.getElementById('loader').style.display='none';
-  setInterval(pollState,4000);
-}
-init();
+loadSessionsList();
 </script>
 </body>
 </html>
