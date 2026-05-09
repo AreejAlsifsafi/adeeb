@@ -273,52 +273,41 @@ async function pickWinner(playerId, playerName){
 }
 
 // ===== cache أسماء اللاعبين =====
-const playerNames = {}; // {player_id: name}
-
-async function getPlayerName(playerId){
-  if(playerNames[playerId]) return playerNames[playerId];
-  try{
-    const {data}=await sb.from('adeeb_game_players').select('name').eq('id',playerId).single();
-    if(data?.name){ playerNames[playerId]=data.name; return data.name; }
-  }catch{}
-  return 'لاعب';
-}
-
-// ===== جلب الإجابات الحالية =====
+// ===== جلب الإجابات — الاسم محفوظ مباشرة في الصف =====
 async function fetchSubmissions(questionId){
   try{
     const {data,error}=await sb.from('adeeb_game_submissions')
-      .select('id, answer, created_at, player_id')
+      .select('id, answer, created_at, player_id, player_name')
       .eq('question_id',questionId)
       .order('created_at',{ascending:true});
     if(error) throw error;
-    // جلب أسماء اللاعبين
-    const rows = data||[];
-    const withNames = await Promise.all(rows.map(async s=>({
+    submissions=(data||[]).map(s=>({
       id: s.id,
       player_id: s.player_id,
-      player_name: await getPlayerName(s.player_id),
+      player_name: s.player_name || 'لاعب',
       answer: s.answer,
       created_at: s.created_at
-    })));
-    submissions = withNames;
+    }));
     renderSubmissions();
   }catch(e){console.error('fetchSubmissions error:',e);}
 }
 
-// ===== ريل تايم للإجابات =====
+// ===== ريل تايم — فوري بدون طلبات إضافية =====
 function listenAnswers(questionId){
   if(answerChannel) sb.removeChannel(answerChannel);
   answerChannel=sb.channel('admin-subs-'+Date.now())
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'adeeb_game_submissions'},async payload=>{
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'adeeb_game_submissions'}, payload=>{
       const row=payload.new;
       if(Number(row.question_id)!==Number(questionId)) return;
-      const pname = await getPlayerName(row.player_id);
-      submissions.push({id:row.id,player_id:row.player_id,player_name:pname,answer:row.answer,created_at:row.created_at});
+      submissions.push({
+        id: row.id,
+        player_id: row.player_id,
+        player_name: row.player_name || 'لاعب',
+        answer: row.answer,
+        created_at: row.created_at
+      });
       renderSubmissions();
-    }).subscribe((status)=>{
-      console.log('Realtime status:', status);
-    });
+    }).subscribe();
   fetchSubmissions(questionId);
 }
 

@@ -288,6 +288,7 @@ async function submitAnswer(){
     const {error}=await sb.from('adeeb_game_submissions').insert({
       player_id: myPlayerId,
       question_id: currentQId,
+      player_name: myName,
       answer: ans
     });
     if(error) throw error;
